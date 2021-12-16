@@ -1,0 +1,11 @@
+NSS.DataContracts/obj/
+NSS.Infrastructure/obj/
+NSS.Repository/bin/
+NSS.Repository/obj/
+NSS.API/bin/
+NSS.API/obj/
+NSS.Commands/obj/
+NSS.Commands/bin/
+NSS.DataContracts/bin/
+.vs/
+NSS.Infrastructure/bin/

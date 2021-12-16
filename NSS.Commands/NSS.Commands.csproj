@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NSS.DataContracts\NSS.DataContracts.csproj" />
+    <ProjectReference Include="..\NSS.Infrastructure\NSS.Infrastructure.csproj" />
+    <ProjectReference Include="..\NSS.Repository\NSS.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

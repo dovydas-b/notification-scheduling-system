@@ -4,11 +4,11 @@ using NSS.Infrastructure.Commands.Contracts;
 
 namespace NSS.Infrastructure.Commands
 {
-    public class CommandExecutorFactory : ICommandExecutorFactory
+    public class CommandFactory : ICommandFactory
     {
         private readonly IServiceProvider serviceProvider;
 
-        public CommandExecutorFactory(IServiceProvider serviceProvider)
+        public CommandFactory(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }

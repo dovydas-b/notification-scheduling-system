@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using notification_scheduling_system.DataContracts.Command.Request;
 using notification_scheduling_system.DataContracts.Command.Response;
+using NSS.Commands.Providers;
 using NSS.Infrastructure.Commands;
 using NSS.Infrastructure.Commands.Contracts;
 
@@ -11,14 +12,16 @@ namespace NSS.Commands.Extensions
         public static IServiceCollection AddCommands(this IServiceCollection services)
         {
             services
-                .AddScoped<ICommandExecutorFactory, CommandExecutorFactory>()
+                .AddScoped<ICommandFactory, CommandFactory>()
                 .AddScoped(typeof(ICommandExecutor<,>), typeof(CommandExecutor<,>));
 
-            services.AddScoped<ICommand<CreateCompanyScheduleCommandRequest, CreateCompanyScheduleCommandResponse>,
-                CreateCompanyScheduleCommand>();
+            services.AddScoped<ICommand<CreateCompanyCommandHandlerRequest, CreateCompanyCommandHandlerResponse>,
+                CreateCompanyCommandHandler>();
 
-            services.AddScoped<ICommand<GetCompanyScheduleCommandRequest, GetCompanyScheduleCommandResponse>,
-                GetCompanyScheduleCommand>();
+            services.AddScoped<ICommand<GetCompanyCommandHandlerRequest, GetCompanyCommandHandlerResponse>,
+                GetCompanyCommandHandler>();
+
+            services.AddScoped<ICompanyMappingProvider, CompanyMappingProvider>();
 
             return services;
         }

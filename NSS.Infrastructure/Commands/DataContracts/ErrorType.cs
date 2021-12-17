@@ -4,8 +4,6 @@
     {
         NotFound,
 
-        ModelValidation,
-
         Unhandled,
     }
 }

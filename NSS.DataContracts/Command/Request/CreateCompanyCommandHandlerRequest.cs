@@ -2,7 +2,7 @@
 
 namespace notification_scheduling_system.DataContracts.Command.Request
 {
-    public class CreateCompanyScheduleCommandRequest
+    public class CreateCompanyCommandHandlerRequest
     {
         public string Name { get; set; }
 

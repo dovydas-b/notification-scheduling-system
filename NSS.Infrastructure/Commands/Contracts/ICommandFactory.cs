@@ -1,6 +1,6 @@
 ﻿namespace NSS.Infrastructure.Commands.Contracts
 {
-    public interface ICommandExecutorFactory
+    public interface ICommandFactory
     {
         ICommandExecutor<TRequest, TResponse> Get<TRequest, TResponse>();
     }

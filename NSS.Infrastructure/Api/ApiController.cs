@@ -11,7 +11,6 @@ namespace NSS.Infrastructure.Api
             return errorResult?.ErrorType switch
             {
                 ErrorType.Unhandled => StatusCode(500, errorResult),
-                ErrorType.ModelValidation => StatusCode(400, errorResult),
                 ErrorType.NotFound => StatusCode(404, errorResult),
                 _ => StatusCode(500, errorResult)
             };

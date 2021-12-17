@@ -11,6 +11,6 @@ namespace NSS.Repository.Context
 
         public DbSet<Company> Companies { get; set; }
 
-        public DbSet<NotificationSchedule> NotificationSchedules { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

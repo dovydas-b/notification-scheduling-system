@@ -9,3 +9,5 @@ NSS.Commands/bin/
 NSS.DataContracts/bin/
 .vs/
 NSS.Infrastructure/bin/
+NSS.Services/obj/
+NSS.Services/bin/

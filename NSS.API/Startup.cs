@@ -1,20 +1,21 @@
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using NSS.Commands.Extensions;
+using NSS.Infrastructure.Providers;
 using NSS.Repository.Context;
 using NSS.Repository.Extensions;
+using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace notification_scheduling_system
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-
 
         public Startup(IConfiguration configuration)
         {
@@ -32,9 +33,14 @@ namespace notification_scheduling_system
                         x => x.MigrationsAssembly(currentAssemblyName));
                 })
                 .AddCommands()
+                .AddProviders()
                 .AddRepositories()
                 .AddSwaggerGen()
-                .AddControllers();
+                .AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, NotificationSchedulingDbContext context)
@@ -46,12 +52,8 @@ namespace notification_scheduling_system
 
             app.UseSwagger();
             app.UseSwaggerUI();
-
             app.UseRouting();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-
-            context.Database.Migrate();
         }
     }
 }

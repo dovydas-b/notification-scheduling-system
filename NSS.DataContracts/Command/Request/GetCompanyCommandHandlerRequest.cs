@@ -2,7 +2,7 @@
 
 namespace notification_scheduling_system.DataContracts.Command.Request
 {
-    public class GetCompanyScheduleCommandRequest
+    public class GetCompanyCommandHandlerRequest
     {
         public Guid Id { get; set; }
     }

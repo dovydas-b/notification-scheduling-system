@@ -14,23 +14,23 @@ namespace notification_scheduling_system.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ScheduleController : ApiController
+    public class CompanyController : ApiController
     {
-        private readonly ICommandExecutorFactory commandExecutorFactory;
+        private readonly ICommandFactory commandFactory;
 
-        public ScheduleController(ICommandExecutorFactory commandExecutorFactory)
+        public CompanyController(ICommandFactory commandFactory)
         {
-            this.commandExecutorFactory = commandExecutorFactory;
+            this.commandFactory = commandFactory;
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(GetCompanyScheduleCommandResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetCompanyCommandHandlerResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var result = await commandExecutorFactory
-                .Get<GetCompanyScheduleCommandRequest, GetCompanyScheduleCommandResponse>()
-                .ExecuteAsync(new GetCompanyScheduleCommandRequest
+            var result = await commandFactory
+                .Get<GetCompanyCommandHandlerRequest, GetCompanyCommandHandlerResponse>()
+                .ExecuteAsync(new GetCompanyCommandHandlerRequest
                 {
                     Id = id
                 }, cancellationToken);
@@ -44,19 +44,19 @@ namespace notification_scheduling_system.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(CreateCompanyScheduleCommandResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CreateCompanyCommandHandlerResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post([FromBody] CreateCompanyScheduleRequest request,
             CancellationToken cancellationToken)
         {
-            var result = await commandExecutorFactory
-                .Get<CreateCompanyScheduleCommandRequest, CreateCompanyScheduleCommandResponse>()
-                .ExecuteAsync(new CreateCompanyScheduleCommandRequest
+            var result = await commandFactory
+                .Get<CreateCompanyCommandHandlerRequest, CreateCompanyCommandHandlerResponse>()
+                .ExecuteAsync(new CreateCompanyCommandHandlerRequest
                 {
-                    MarketType = request.MarketType,
+                    MarketType = request.MarketType.GetValueOrDefault(),
                     Name = request.Name,
                     Number = request.Number,
-                    Type = request.Type
+                    Type = request.Type.GetValueOrDefault()
                 }, cancellationToken);
 
             if (!result.Success)
@@ -64,7 +64,7 @@ namespace notification_scheduling_system.Controllers
                 return this.CommandErrorResponse(result.Error);
             }
 
-            return Ok(result.Result);
+            return CreatedAtAction(nameof(GetById), new { id = result.Result.Id }, result.Result);
         }
     }
 }

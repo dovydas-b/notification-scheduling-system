@@ -1,29 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using notification_scheduling_system.DataContracts.Enums;
 
 namespace notification_scheduling_system.DataContracts.Domain
 {
-    public class Company : BaseEntity
+    public sealed class Company
     {
         public Company()
         {
-            this.Notifications = new List<NotificationSchedule>();
+            this.Notifications = new List<Notification>();
         }
 
-        [Required]
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
-        [Required]
         [MaxLength(10)]
         public string Number { get; set; }
 
-        [Required]
+
+        [Column(TypeName = "nvarchar(24)")]
         public CompanyType Type { get; set; }
 
-        [Required]
+
+        [Column(TypeName = "nvarchar(24)")]
         public MarketType MarketType { get; set; }
 
-        public ICollection<NotificationSchedule> Notifications { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
     }
 }

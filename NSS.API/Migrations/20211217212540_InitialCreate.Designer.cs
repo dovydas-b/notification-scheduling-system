@@ -10,7 +10,7 @@ using NSS.Repository.Context;
 namespace notification_scheduling_system.Migrations
 {
     [DbContext(typeof(NotificationSchedulingDbContext))]
-    [Migration("20211216154113_InitialCreate")]
+    [Migration("20211217212540_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,31 +27,32 @@ namespace notification_scheduling_system.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("MarketType")
-                        .HasColumnType("int");
+                    b.Property<string>("MarketType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Number")
-                        .IsRequired()
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(24)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("notification_scheduling_system.DataContracts.Domain.NotificationSchedule", b =>
+            modelBuilder.Entity("notification_scheduling_system.DataContracts.Domain.Notification", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<Guid?>("CompanyId")
                         .HasColumnType("uniqueidentifier");
@@ -63,10 +64,10 @@ namespace notification_scheduling_system.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("NotificationSchedules");
+                    b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("notification_scheduling_system.DataContracts.Domain.NotificationSchedule", b =>
+            modelBuilder.Entity("notification_scheduling_system.DataContracts.Domain.Notification", b =>
                 {
                     b.HasOne("notification_scheduling_system.DataContracts.Domain.Company", null)
                         .WithMany("Notifications")

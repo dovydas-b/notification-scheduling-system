@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +14,6 @@ namespace NSS.Infrastructure.Repository
         public RepositoryBase(DbContext dbContext)
         {
             this.dbContext = dbContext;
-        }
-
-        public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        {
-            return await dbContext.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken, bool disableValidation = false)

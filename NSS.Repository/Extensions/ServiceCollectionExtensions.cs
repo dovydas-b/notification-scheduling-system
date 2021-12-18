@@ -10,6 +10,9 @@ namespace NSS.Repository.Extensions
             services
                 .AddScoped<ICompanyRepository, CompanyRepository>();
 
+            services
+                .AddSingleton<IMarketDataRepository, MarketDataRepository>();
+
             return services;
         }
     }

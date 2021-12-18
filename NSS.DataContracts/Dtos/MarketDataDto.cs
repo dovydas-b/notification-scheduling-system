@@ -3,15 +3,15 @@ using notification_scheduling_system.DataContracts.Enums;
 
 namespace notification_scheduling_system.DataContracts.Dtos
 {
-    public class CompanyScheduleDaysMappingDto
+    public class MarketDataDto
     {
-        public CompanyScheduleDaysMappingDto()
+        public MarketDataDto()
         {
-            this.SendOnDays = new int[] { };
+            this.SendNotificationOnDays = new int[] { };
             this.ApplicableCompanyTypes = new CompanyType[] { };
         }
 
-        public int[] SendOnDays { get; set; }
+        public int[] SendNotificationOnDays { get; set; }
 
         public IEnumerable<CompanyType> ApplicableCompanyTypes { get; set; }
     }

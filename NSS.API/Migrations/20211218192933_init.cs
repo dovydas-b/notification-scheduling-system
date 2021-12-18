@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace notification_scheduling_system.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +14,8 @@ namespace notification_scheduling_system.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Number = table.Column<string>(maxLength: 10, nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(24)", nullable: false),
-                    MarketType = table.Column<string>(type: "nvarchar(24)", nullable: false)
+                    Type = table.Column<string>(nullable: false),
+                    MarketType = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,10 +26,9 @@ namespace notification_scheduling_system.Migrations
                 name: "Notifications",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SendingDate = table.Column<DateTime>(nullable: false),
-                    CompanyId = table.Column<Guid>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    CompanyId = table.Column<Guid>(nullable: false),
+                    SendingDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +38,7 @@ namespace notification_scheduling_system.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

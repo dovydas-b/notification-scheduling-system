@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using notification_scheduling_system.DataContracts.Command.Request;
+﻿using notification_scheduling_system.DataContracts.Command.Request;
 using notification_scheduling_system.DataContracts.Command.Response;
 using notification_scheduling_system.DataContracts.Domain;
-using NSS.Commands.Providers;
 using NSS.Infrastructure.Commands.Contracts;
 using NSS.Infrastructure.Commands.DataContracts;
 using NSS.Infrastructure.Providers;
 using NSS.Repository.Contracts;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NSS.Commands
 {
@@ -19,28 +18,28 @@ namespace NSS.Commands
     {
         private readonly ICompanyRepository companyRepository;
         private readonly IDateTimeProvider dateTimeProvider;
-        private readonly ICompanyMappingProvider companyNotificationProvider;
+        private readonly IMarketDataRepository marketDataRepository;
 
         public CreateCompanyCommandHandler(ICompanyRepository companyRepository,
             IDateTimeProvider dateTimeProvider,
-            ICompanyMappingProvider companyNotificationProvider)
+            IMarketDataRepository marketDataRepository)
         {
             this.companyRepository = companyRepository;
             this.dateTimeProvider = dateTimeProvider;
-            this.companyNotificationProvider = companyNotificationProvider;
+            this.marketDataRepository = marketDataRepository;
         }
 
         public async Task<CommandResponse<CreateCompanyCommandHandlerResponse>> ExecuteAsync(
             CreateCompanyCommandHandlerRequest request, CancellationToken cancellationToken)
         {
-            var notificationMapping = this.companyNotificationProvider
-                .GetCompanyScheduleDaysMappingByMarket(request.MarketType);
+            var marketData = this.marketDataRepository
+                .GetMarketDataByMarketType(request.MarketType);
 
             var dateTimeNow = dateTimeProvider.UtcNow();
 
-            var notifications = notificationMapping.ApplicableCompanyTypes.Contains(request.Type)
-                ? notificationMapping
-                    .SendOnDays
+            var notifications = marketData.ApplicableCompanyTypes.Contains(request.Type)
+                ? marketData
+                    .SendNotificationOnDays
                     .Select(sentDay => new Notification
                     {
                         SendingDate = dateTimeNow.AddDays(sentDay)

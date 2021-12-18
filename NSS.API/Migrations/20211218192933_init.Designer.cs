@@ -10,8 +10,8 @@ using NSS.Repository.Context;
 namespace notification_scheduling_system.Migrations
 {
     [DbContext(typeof(NotificationSchedulingDbContext))]
-    [Migration("20211217212540_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211218192933_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,7 @@ namespace notification_scheduling_system.Migrations
 
                     b.Property<string>("MarketType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(24)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -40,7 +40,7 @@ namespace notification_scheduling_system.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(24)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -49,12 +49,11 @@ namespace notification_scheduling_system.Migrations
 
             modelBuilder.Entity("notification_scheduling_system.DataContracts.Domain.Notification", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CompanyId")
+                    b.Property<Guid>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("SendingDate")
@@ -71,7 +70,9 @@ namespace notification_scheduling_system.Migrations
                 {
                     b.HasOne("notification_scheduling_system.DataContracts.Domain.Company", null)
                         .WithMany("Notifications")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

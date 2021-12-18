@@ -9,8 +9,4 @@
     <ProjectReference Include="..\NSS.Infrastructure\NSS.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-  </ItemGroup>
-
 </Project>

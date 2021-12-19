@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace NSS.Infrastructure.Repository
 {
@@ -16,18 +14,28 @@ namespace NSS.Infrastructure.Repository
             this.dbContext = dbContext;
         }
 
-        public async Task SaveChangesAsync(CancellationToken cancellationToken, bool disableValidation = false)
+        public async Task<bool> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            await dbContext.SaveChangesAsync(cancellationToken);
+            try
+            {
+                await dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        public async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken, bool saveChanges = true)
+        public async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken,
+            bool saveChanges = true)
         {
             dbContext.Set<TEntity>().Add(entity);
 
             if (saveChanges)
             {
-                await dbContext.SaveChangesAsync(cancellationToken);
+                return await this.SaveChangesAsync(cancellationToken) ? entity : null;
             }
 
             return entity;

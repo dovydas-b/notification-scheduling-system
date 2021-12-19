@@ -7,6 +7,6 @@ namespace NSS.Infrastructure.Repository
     {
         Task<T> InsertAsync(T entity, CancellationToken cancellationToken, bool saveChanges = true);
         
-        Task SaveChangesAsync(CancellationToken cancellationToken, bool disableValidation = false);
+        Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

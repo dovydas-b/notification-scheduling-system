@@ -11,3 +11,5 @@ NSS.DataContracts/bin/
 NSS.Infrastructure/bin/
 NSS.Services/obj/
 NSS.Services/bin/
+Tests/NSS.Commands.Tests/bin/
+Tests/NSS.Commands.Tests/obj/

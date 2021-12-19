@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSS.Commands", "NSS.Command
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSS.Infrastructure", "NSS.Infrastructure\NSS.Infrastructure.csproj", "{972F3DE2-A4C5-4520-B8C8-B1483A3AE34B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E49EFF15-161A-4AC2-856E-A6BAFFDBC954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSS.Commands.Tests", "Tests\NSS.Commands.Tests\NSS.Commands.Tests.csproj", "{833A47D8-FB4E-4EE1-BA2B-6D84FDA79A8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,16 @@ Global
 		{972F3DE2-A4C5-4520-B8C8-B1483A3AE34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{972F3DE2-A4C5-4520-B8C8-B1483A3AE34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{972F3DE2-A4C5-4520-B8C8-B1483A3AE34B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{833A47D8-FB4E-4EE1-BA2B-6D84FDA79A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{833A47D8-FB4E-4EE1-BA2B-6D84FDA79A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{833A47D8-FB4E-4EE1-BA2B-6D84FDA79A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{833A47D8-FB4E-4EE1-BA2B-6D84FDA79A8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{833A47D8-FB4E-4EE1-BA2B-6D84FDA79A8C} = {E49EFF15-161A-4AC2-856E-A6BAFFDBC954}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {419C2E01-14B7-4C1D-82E5-BB0FB9B37D0E}
